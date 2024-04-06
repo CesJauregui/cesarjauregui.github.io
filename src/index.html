@@ -1,18 +1,235 @@
 <!DOCTYPE html>
 <html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="output.css" />
+    <style>
+      tool-tip {
+        position: absolute;
+        z-index: 1;
+        pointer-events: none;
+        user-select: none;
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="output.css">
+        box-shadow: 0 0 10px #0000;
+        padding: 0.5 0.5;
+        font-size: 0.8rem;
+        border-radius: 8px;
+
+        top: 100%;
+        left: 12.5%;
+
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      :has(> tool-tip) {
+        position: relative;
+      }
+
+      :has(> tool-tip):hover tool-tip {
+        opacity: 1;
+      }
+    </style>
     <title>Portfolio</title>
-</head>
+  </head>
 
-<body>
+  <body>
+    <header class="flex flex-col bg-transparent/90 h-screen">
+      <nav class="flex justify-evenly items-center py-7 border-b-2">
+        <h1 class="font-bold text-xl text-yellow-300 italic">
+          Cesar Jauregui.dev
+        </h1>
+        <ul class="hidden text-white gap-7 list-none md:flex">
+          <li
+            class="font-bold hover:text-yellow-500 transition duration-300 ease-in-out"
+          >
+            <a href="#">Experiencia</a>
+          </li>
+          <li
+            class="font-bold hover:text-yellow-500 transition duration-300 ease-in-out"
+          >
+            <a href="">Proyectos</a>
+          </li>
+          <li
+            class="font-bold hover:text-yellow-500 transition duration-300 ease-in-out"
+          >
+            <a href="">Habilidades técnicas</a>
+          </li>
+          <li
+            class="font-bold hover:text-yellow-500 transition duration-300 ease-in-out"
+          >
+            <a href="">Certificaciones</a>
+          </li>
+        </ul>
+      </nav>
+      <section class="flex justify-evenly items-center h-full">
+        <div class="flex flex-col px-3 md:px-0">
+          <h2 class="font-semibold text-lg sm:text-4xl text-white">
+            Soy
+            <span class="font-bold text-2xl sm:text-6xl animate-pulse"
+              >César Jauregui</span
+            >
+          </h2>
+          <p class="text-white pt-4 font-bold text-base sm:text-2xl">
+            Programador Full Stack
+          </p>
+          <ul class="flex pt-9 gap-5 items-center">
+            <li
+              class="transition ease hover:-translate-y-1 hover:scale-110 delay-150 duration-200"
+            >
+              <a href=""
+                ><i class="fa-brands fa-github fa-2xl text-white"></i>
+              </a>
+            </li>
+            <li
+              class="transition ease hover:-translate-y-1 hover:scale-110 delay-150 duration-200"
+            >
+              <a href=""
+                ><i class="fa-brands fa-linkedin fa-2xl text-blue-600"></i
+              ></a>
+            </li>
+            <li
+              class="transition ease hover:-translate-y-1 hover:scale-110 delay-150 duration-200"
+            >
+              <a href="" class=""
+                ><i class="fa-solid fa-envelope fa-2xl text-red-500/70"></i>
+              </a>
+            </li>
+            <div class="gap-x-2 hidden md:flex">
+              <p
+                id="materialTailwind"
+                class="block font-sans sm:text-base antialiased font-normal text-white leading-relaxed bg-mine-shaft-600 rounded-sm p-1"
+              >
+                cjaureguisaavedra@gmail.com
+              </p>
+              <button
+                data-clipboard-target="#materialTailwind"
+                class="btn relative h-8 max-h-[40px] w-8 max-w-[40px] select-none rounded-lg bg-gray-900 text-center align-middle font-sans text-xs font-medium uppercase text-white shadow-md transition-all hover:shadow-lg disabled:pointer-events-none disabled:opacity-50"
+                type="button"
+                id="btn"
+                aria-label="test"
+              >
+                <tool-tip role="tooltip"> Copiado </tool-tip>
+                <span
+                  class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                  ><i id="clip" class="fa-solid fa-clipboard"></i>
+                </span>
+              </button>
+            </div>
+            <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
+            <script defer>
+              let clipboard = new ClipboardJS(".btn");
 
-</body>
+              clipboard.on("success", function (e) {
+                console.info("Action: ", e.action);
+              });
 
+              let clipBtn = document.querySelector("#btn");
+              let icon = document.querySelector("#clip");
+              clipBtn.addEventListener("click", function () {
+                icon.setAttribute("class", "fa-solid fa-check fa-bounce");
+                icon.setAttribute("class", "fa-solid fa-check");
+                //icon.removeClass("fa-solid fa-clipboard");
+                //icon.addClass("fa-solid fa-check");
+              });
+            </script>
+          </ul>
+        </div>
+        <div>
+          <img
+            src="/img/f1.png"
+            style="
+              -webkit-mask-image: -webkit-radial-gradient(
+                85% 85%,
+                circle,
+                transparent 7px,
+                black 8px
+              );
+              mask-image: radial-gradient(
+                circle at 85% 85%,
+                transparent 7px,
+                black 8px
+              );
+            "
+            class="w-80 h-full"
+            alt=""
+          />
+        </div>
+      </section>
+    </header>
+    <div
+      class="w-100 h-full"
+      style="
+        -webkit-mask-image: -webkit-radial-gradient(
+          85% 85%,
+          circle,
+          transparent 7px,
+          black 8px
+        );
+        mask-image: radial-gradient(
+          circle at 85% 85%,
+          transparent 7px,
+          black 8px
+        );
+      "
+    >
+      asdas
+    </div>
+    <main class="bg-mine-shaft-950">
+      <section>
+        <h2>Sobre mi</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque velit
+          corporis minus earum quae sunt voluptatem laudantium molestiae
+          consequuntur dolorem tenetur iste, facilis itaque odio libero, alias,
+          assumenda aspernatur at? Lorem ipsum dolor sit amet consectetur
+          adipisicing elit. Aperiam eos voluptatibus reprehenderit, distinctio
+          quod eveniet a ab eum qui. Numquam, debitis distinctio! Similique
+          porro ducimus ullam possimus tempora sapiente sed?
+        </p>
+      </section>
+
+      <section>
+        <h2>Proyectos</h2>
+        <article class="bg-no-repeat" style="background-image: url()">
+          <header>ShareIt</header>
+          <footer>
+            <buttton>php asd a sa </buttton>
+            <buttton>tailwind</buttton>
+          </footer>
+        </article>
+        <article class="bg-no-repeat" style="background-image: url()">
+          <header></header>
+          <footer></footer>
+        </article>
+      </section>
+
+      <section>
+        <h2>Habilidades</h2>
+        <div>
+          <div class="habilidad">
+            <img src="" alt="logo" />
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <h3 class="font-light">César Jauregui</h3>
+    </footer>
+  </body>
 </html>
